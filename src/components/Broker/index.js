@@ -10,36 +10,27 @@ const options = {
 }
 class Broker extends Component {
   state = {
-    brokerUrl: 'mqtt://test.mosquitto.org:8081',
-    listener: '',
+    // brokerUrl: 'mqtt://test.mosquitto.org:8081',
+    brokerUrl: '',
+    // listener: '',
     message: '',
+    client: '',
   }
 
-  onConnect = event => {
+  onConnect = async event => {
     event.preventDefault()
     const {brokerUrl} = this.state
-
-    const client = mqtt.connect(brokerUrl, options)
+    const response = await mqtt.connect(brokerUrl, options)
+    this.setState({client: response})
   }
 
   onPublish = event => {
     event.preventDefault()
-    const {brokerUrl} = this.state
-
-    const client = mqtt.connect(brokerUrl, options)
-    console.log('client', client)
+    const {client} = this.state
     client.on('connect', () => {
       const {message} = this.state
-      client.subscribe(connectionSettings.topic, err => {
-        if (!err) {
-          client.publish(connectionSettings.topic, message)
-        }
-      })
-    })
-
-    client.on('message', (topic, message) => {
-      this.setState({listener: message.toString()})
-      client.end()
+      client.publish(connectionSettings.topic, message)
+      this.setState({message: ''})
     })
   }
 
@@ -52,16 +43,14 @@ class Broker extends Component {
   }
 
   render() {
-    const {listener} = this.state
+    const {message} = this.state
     return (
-      <>
+      <div className="container">
         <form onSubmit={this.onConnect}>
           <h1>Broker Address</h1>
           <div className="inset">
-            <p>
-              <label htmlFor="email">Broker ADDRESS</label>
-              <input type="text" id="email" onChange={this.onChangeBrokerUrl} />
-            </p>
+            <label htmlFor="email">Broker ADDRESS</label>
+            <input type="text" id="email" onChange={this.onChangeBrokerUrl} />
           </div>
           <p className="p-container">
             <span>Forgot password ?</span>
@@ -73,7 +62,12 @@ class Broker extends Component {
           <div className="inset">
             <p>
               <label htmlFor="email">Message</label>
-              <input type="text" id="email" onChange={this.onChangeMessage} />
+              <input
+                type="text"
+                id="email"
+                value={message}
+                onChange={this.onChangeMessage}
+              />
             </p>
           </div>
           <p className="p-container">
@@ -81,18 +75,7 @@ class Broker extends Component {
             <input type="submit" id="go" value="Publish" />
           </p>
         </form>
-        <form>
-          <h1>Listener</h1>
-          <div className="inset">
-            <p>
-              <label htmlFor="email">Listener</label>
-              <input type="text" id="email" value={listener} />
-            </p>
-          </div>
-        </form>
-        {/* <p className="response-heading">{listener}</p>
-        <h1 className="response-heading">Response</h1> */}
-      </>
+      </div>
     )
   }
 }

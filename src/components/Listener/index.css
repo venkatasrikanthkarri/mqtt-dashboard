@@ -77,7 +77,8 @@ label {
 }
 
 input[type='text'],
-input[type='password'] {
+input[type='password'],
+textarea {
   width: 100%;
   color: white;
   padding: 8px 5px;

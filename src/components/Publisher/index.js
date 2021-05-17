@@ -14,6 +14,7 @@ class Publisher extends Component {
     brokerUrl: '',
     // listener: '',
     message: '',
+    sentMessagesList: [],
   }
 
   // onConnect = async event => {
@@ -27,8 +28,14 @@ class Publisher extends Component {
     event.preventDefault()
     const {brokerUrl} = this.state
     const client = await mqtt.connect(brokerUrl, options)
+    const {message, sentMessagesList} = this.state
+    console.log(message)
+    const updatedSentMessageList = sentMessagesList
+    updatedSentMessageList.push(message)
+    this.setState({
+      sentMessagesList: updatedSentMessageList,
+    })
     client.on('connect', () => {
-      const {message} = this.state
       client.publish(connectionSettings.topic, message)
       this.setState({message: ''})
     })
@@ -43,7 +50,8 @@ class Publisher extends Component {
   }
 
   render() {
-    const {message} = this.state
+    const {sentMessagesList} = this.state
+    console.log(sentMessagesList)
     return (
       <div className="publisher-container">
         <form onSubmit={this.onPublish}>
@@ -53,19 +61,25 @@ class Publisher extends Component {
               type="text"
               id="brokerAddress"
               onChange={this.onChangeBrokerUrl}
-              placeholder="Enter Broker Address"
+              placeholder="test.mosquitto.org"
             />
             <input type="text" id="topic" placeholder="Enter Topic" />
           </div>
+          <div className="message-list">
+            {sentMessagesList.map(eachMsg => (
+              <p>{eachMsg}</p>
+            ))}
+          </div>
           <div className="inset">
-            <label htmlFor="Message">Message</label>
             <input
               type="text"
-              id="Message"
-              value={message}
+              id="message"
+              placeholder="Type Here..."
               onChange={this.onChangeMessage}
             />
-            <input type="submit" id="go" value="Publish" />
+            <button type="submit" id="go">
+              Send
+            </button>
           </div>
         </form>
       </div>

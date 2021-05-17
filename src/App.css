@@ -11,4 +11,6 @@ body {
 }
 
 .app-container {
+  width: 70%;
+  margin: auto;
 }

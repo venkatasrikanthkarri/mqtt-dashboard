@@ -1,0 +1,17 @@
+.publisher-container {
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.broker-container {
+  padding: 20px;
+  border-top: 1px solid #19191a;
+  display: flex;
+}
+
+.inset {
+  padding: 20px;
+  border-top: 1px solid #19191a;
+}

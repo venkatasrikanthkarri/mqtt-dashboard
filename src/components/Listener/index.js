@@ -1,7 +1,7 @@
 import {Component} from 'react'
 import mqtt from 'mqtt'
 
-import './index.css'
+import './index.module.css'
 
 const connectionSettings = {topic: 'presence'}
 const options = {

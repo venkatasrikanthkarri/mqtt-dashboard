@@ -1,0 +1,27 @@
+.headerContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logo {
+  margin: 0;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+}
+
+@media screen and (max-width: 768px) {
+  .navContainer {
+    display: none;
+  }
+}
+
+.navItem {
+  margin-right: 24px;
+  text-decoration: none;
+  font-size: 16px;
+}

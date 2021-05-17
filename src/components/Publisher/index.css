@@ -2,7 +2,6 @@
   height: 100vh;
   display: flex;
   justify-content: space-around;
-  align-items: center;
 }
 
 .broker-container {
@@ -13,7 +12,10 @@
 .message-list {
   list-style-type: none;
   flex: 1;
-  border: 2px solid red;
+  border: 2px solid black;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: black;
 }
 
 .inset {
@@ -38,7 +40,15 @@ input {
 
 .message-list {
   flex: 1;
+  max-height: 1300px;
   margin-top: 20px;
+  overflow-y: overlay;
+}
+
+.message-box {
+  border: 2px solid green;
+  border-radius: 12px;
+  padding: 10px;
 }
 
 form {

@@ -8,37 +8,29 @@ const options = {
   protocol: 'mqtts',
   clientId: '99224559',
 }
+// mqtt://test.mosquitto.org:8081,
 class Publisher extends Component {
   state = {
-    // brokerUrl: 'mqtt://test.mosquitto.org:8081',
     brokerUrl: '',
-    // listener: '',
     message: '',
     sentMessagesList: [],
   }
 
-  // onConnect = async event => {
-  //   event.preventDefault()
-  //   const {brokerUrl} = this.state
-  //   const response = await mqtt.connect(brokerUrl, options)
-  //   this.setState({client: response})
-  // }
-
   onPublish = async event => {
     event.preventDefault()
-    const {brokerUrl} = this.state
-    const client = await mqtt.connect(brokerUrl, options)
-    const {message, sentMessagesList} = this.state
-    console.log(message)
+    const {message, sentMessagesList, brokerUrl} = this.state
     const updatedSentMessageList = sentMessagesList
     updatedSentMessageList.push({message, id: updatedSentMessageList.length})
     this.setState({
       sentMessagesList: updatedSentMessageList,
     })
+
+    const client = await mqtt.connect(brokerUrl, options)
     client.on('connect', () => {
       client.publish(connectionSettings.topic, message)
       this.setState({message: ''})
     })
+
     client.end()
   }
 
@@ -68,7 +60,9 @@ class Publisher extends Component {
           </div>
           <div className="message-list">
             {sentMessagesList.map(eachMsg => (
-              <p key={eachMsg.id}>{eachMsg.message}</p>
+              <p className="message-box" key={eachMsg.id}>
+                {eachMsg.message}
+              </p>
             ))}
           </div>
           <div className="inset">

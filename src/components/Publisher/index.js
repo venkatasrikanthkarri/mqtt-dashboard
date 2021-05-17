@@ -31,7 +31,7 @@ class Publisher extends Component {
     const {message, sentMessagesList} = this.state
     console.log(message)
     const updatedSentMessageList = sentMessagesList
-    updatedSentMessageList.push(message)
+    updatedSentMessageList.push({message, id: updatedSentMessageList.length})
     this.setState({
       sentMessagesList: updatedSentMessageList,
     })
@@ -39,6 +39,7 @@ class Publisher extends Component {
       client.publish(connectionSettings.topic, message)
       this.setState({message: ''})
     })
+    client.end()
   }
 
   onChangeMessage = event => {
@@ -67,7 +68,7 @@ class Publisher extends Component {
           </div>
           <div className="message-list">
             {sentMessagesList.map(eachMsg => (
-              <p>{eachMsg}</p>
+              <p key={eachMsg.id}>{eachMsg.message}</p>
             ))}
           </div>
           <div className="inset">

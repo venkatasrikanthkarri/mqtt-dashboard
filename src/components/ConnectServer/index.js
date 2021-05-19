@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {AiOutlineClose} from 'react-icons/ai'
 import mqtt from 'mqtt'
 
 import ConnectServerCSS from './index.module.css'
@@ -28,35 +29,46 @@ class ConnectServer extends Component {
     this.setState({brokerUrl: event.target.value})
   }
 
+  onClickCloseBtn = () => {
+    const {onClickHamburgerMenu} = this.props
+    onClickHamburgerMenu()
+  }
+
   render() {
     const {isHamburberMenuOpened} = this.props
     const cotainerStyles = isHamburberMenuOpened
       ? 'connectServerContainerOn'
       : null
     return (
-      <form
-        className={
-          (ConnectServerCSS.connectServerContainer,
-          ConnectServerCSS.connectServerContainerOn)
-        }
-        onSubmit={this.onPublish}
-      >
-        <input
-          type="text"
-          id="brokerAddress"
-          onChange={this.onChangeBrokerUrl}
-          placeholder="test.mosquitto.org"
+      <>
+        <form
+          className={
+            (ConnectServerCSS.connectServerContainer,
+            ConnectServerCSS.connectServerContainerOn)
+          }
+          onSubmit={this.onPublish}
+        >
+          <input
+            type="text"
+            id="brokerAddress"
+            onChange={this.onChangeBrokerUrl}
+            placeholder="test.mosquitto.org"
+          />
+          <input
+            type="text"
+            id="topic"
+            onChange={this.onChangeTopic}
+            placeholder="Enter Topic"
+          />
+          <button type="submit" id="go">
+            Connect
+          </button>
+        </form>
+        <AiOutlineClose
+          className={ConnectServerCSS.closeIcon}
+          onClick={this.onClickCloseBtn}
         />
-        <input
-          type="text"
-          id="topic"
-          onChange={this.onChangeTopic}
-          placeholder="Enter Topic"
-        />
-        <button type="submit" id="go">
-          Connect
-        </button>
-      </form>
+      </>
     )
   }
 }

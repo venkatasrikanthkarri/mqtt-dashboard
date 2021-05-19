@@ -36,17 +36,19 @@ class ConnectServer extends Component {
 
   render() {
     const {isHamburberMenuOpened} = this.props
-    const cotainerStyles = isHamburberMenuOpened
-      ? 'connectServerContainerOn'
-      : null
+    const formWidth = isHamburberMenuOpened ? '600px' : '0px'
     return (
-      <>
+      <div
+        className={ConnectServerCSS.connectServerContainerOn}
+        style={{width: formWidth}}
+      >
+        <AiOutlineClose
+          className={ConnectServerCSS.closeIcon}
+          onClick={this.onClickCloseBtn}
+        />
         <form
-          className={
-            (ConnectServerCSS.connectServerContainer,
-            ConnectServerCSS.connectServerContainerOn)
-          }
           onSubmit={this.onPublish}
+          className={ConnectServerCSS.connectServerForm}
         >
           <input
             type="text"
@@ -64,11 +66,7 @@ class ConnectServer extends Component {
             Connect
           </button>
         </form>
-        <AiOutlineClose
-          className={ConnectServerCSS.closeIcon}
-          onClick={this.onClickCloseBtn}
-        />
-      </>
+      </div>
     )
   }
 }

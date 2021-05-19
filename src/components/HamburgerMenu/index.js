@@ -25,13 +25,19 @@ class HamburgerMenu extends Component {
   }
 
   render() {
+    const {menuComponent: MenuComponent} = this.props
+    const {isHamburberMenuOpened} = this.state
+
     return (
       <div className={HamburgerMenuCSS.hamburgerMenuContainer}>
         <GiHamburgerMenu
           className={HamburgerMenuCSS.hamburgerMenuIcon}
           onClick={this.onClickHamburgerMenu}
         />
-        {this.renderMenu()}
+        <MenuComponent
+          isHamburberMenuOpened={isHamburberMenuOpened}
+          onClickHamburgerMenu={this.onClickHamburgerMenu}
+        />
       </div>
     )
   }

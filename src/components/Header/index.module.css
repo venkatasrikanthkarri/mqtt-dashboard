@@ -1,11 +1,11 @@
 .headerContainer {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
 .logo {
   margin: 0;
+  flex: 1;
 }
 
 .navContainer {

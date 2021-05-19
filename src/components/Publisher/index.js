@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import mqtt from 'mqtt'
 
+import SideNavContainer from '../SideNav'
 import './index.css'
 
 const connectionSettings = {topic: 'presence'}
@@ -20,10 +21,13 @@ class Publisher extends Component {
     event.preventDefault()
     const {message, sentMessagesList, brokerUrl} = this.state
     const updatedSentMessageList = sentMessagesList
-    updatedSentMessageList.push({message, id: updatedSentMessageList.length})
-    this.setState({
-      sentMessagesList: updatedSentMessageList,
-    })
+
+    if (message !== '') {
+      updatedSentMessageList.push({message})
+      this.setState({
+        sentMessagesList: updatedSentMessageList,
+      })
+    }
 
     const client = await mqtt.connect(brokerUrl, options)
     client.on('connect', () => {
@@ -46,8 +50,8 @@ class Publisher extends Component {
     const {sentMessagesList} = this.state
     console.log(sentMessagesList)
     return (
-      <div className="publisher-container">
-        <form onSubmit={this.onPublish}>
+      <div>
+        <form className="publisher-container" onSubmit={this.onPublish}>
           <h1>Publisher</h1>
           <div className="broker-container">
             <input

@@ -1,7 +1,9 @@
 .publisher-container {
-  height: 100vh;
-  display: flex;
   justify-content: space-around;
+  flex: 1;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .broker-container {
@@ -49,13 +51,6 @@ input {
   border: 2px solid green;
   border-radius: 12px;
   padding: 10px;
-}
-
-form {
-  flex: 1;
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
 }
 
 button {

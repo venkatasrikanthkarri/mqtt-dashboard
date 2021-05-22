@@ -1,0 +1,49 @@
+.publisherContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* .brokerContainer {
+  margin-top: 20px;
+  display: flex;
+} */
+
+input {
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid black;
+  padding: 10px;
+  font-size: 16px;
+  margin-right: 20px;
+}
+
+form {
+  flex: 1;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  background-color: #44c767;
+  border-radius: 4px;
+  border: 1px solid #18ab29;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: 'Roboto';
+  font-size: 17px;
+  padding: 10px 20px;
+}
+
+button:hover {
+  background-color: #5cbf2a;
+}
+
+button:active {
+  position: relative;
+  top: 1px;
+}
